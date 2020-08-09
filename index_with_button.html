@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>
+        Object & DOM
+    </title>
+</head>
+<style>
+    .wrapper {
+        max-width: 90%;
+        margin: 0 auto;
+    }
+
+    #user-wrapper {
+        width: 50%;
+    }
+
+    .user-list-card {
+        /* display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: start;*/
+        padding: 10px;
+        list-style: none;
+        background-color: khaki;
+    }
+
+    .user-list-card h4 {
+        font-size: 16px;
+        font-weight: 400;
+        font-family: Georgia, 'Times New Roman', Times, serif;
+        color: darkblue;
+        padding: 5px;
+
+    }
+
+    .user-list-card img {
+        width: 50px;
+        height: 50px;
+        margin: 20px;
+
+
+    }
+
+    .user-list-card p {
+        font-size: 14 px;
+        margin: 20px;
+    }
+
+    .user-list-card span {
+        color: lightcoral;
+
+    }
+
+    .user-list-card .inf {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    .user-headers {
+        background-color: aqua;
+        color: darkred;
+    }
+
+    .student-card {
+        display: flex;
+        padding: 40px;
+    }
+
+    .student-card:nth-child(even) {
+        background-color: rgba(204, 240, 204, 0.425);
+    }
+
+    .student-card:nth-child(odd) {
+        background-color: rgba(52, 70, 52, 0.425);
+    }
+
+    .good-list:nth-child(even) {
+        background: rgba(33, 78, 14, 0.425)
+    }
+
+    .good-list:nth-child(odd) {
+        background: rgba(179, 240, 179, 0.425)
+    }
+
+    .norm-list:nth-child(even) {
+        background: rgba(54, 1, 59, 0.425)
+    }
+
+    .norm-list:nth-child(odd) {
+        background: rgba(157, 125, 160, 0.425)
+    }
+
+    .bed-list:nth-child(even) {
+        background: rgba(102, 39, 2, 0.425)
+    }
+
+    .bed-list:nth-child(odd) {
+        background: rgba(223, 163, 163, 0.425)
+    }
+</style>
+
+<body>
+    <div class="wrapper">
+        <p>
+            JavaScript програма для перевірки успішності студентів з груп GROUP1,
+            GROUP2, GROUP3 з різними оцінками (значення рандомні) та виводуння інформації по рейтингам на екран</br>
+            Оцінки:<br>
+            Хороші студенти: 89-100 <br>
+            Середні студенти: 65-88 <br>
+            Слабкі студенти: 0-64 <br>
+        </p>
+        <br>
+        <ul>
+            Вхідні дані:
+            <li>Масиви group1, group2, group3 з даними про студентів (об'єкт спочатку містить два ключа name та gnd (цей
+                ключ для того, щоб задати ім'я файлу з аватаркою: шаблон: якщо gnd="female" то шаблон "w#.png", інакше
+                якщо gnd="male", то шаблон "m#.png", # - рандомне число від 1 до 7 (всього по 7 файлів із кожним видом
+                зображення).
+                Всі інші ключі: група (параметр функції), ID (прив'язаний до таймера, щоб був різний (!не впевнена)),
+                дисципліна
+                (вибирається із масиву за рандомним індексом
+                елемента), рандомна
+                оцінка, фото додається за допомогою функції editArrKey</li>
+            <li>
+                Дві глобальні змінні averagePoint = 65 (середні результати),hightPoint
+                = 89 (найкращі результати)
+            </li>
+        </ul>
+        <br />
+
+        <div>
+
+            <ol id="user-wrapper">
+
+            </ol>
+        </div>
+
+
+    </div>
+
+    <script>
+        var group1 = [
+            {
+                name: "Stuart Jimenez",
+                gnd: "male"
+            }, {
+                name: "Mike Presley",
+                gnd: "male"
+            }, {
+                name: "Elbert Young",
+                gnd: "male"
+            }, {
+                name: "Hadwin Ortega",
+                gnd: "male"
+            }, {
+                name: "Leonard Hutchinson",
+                gnd: "male"
+            }, {
+                name: "Elizabeth Fuller",
+                gnd: "female"
+            }, {
+                name: "Pansy Boyd",
+                gnd: "female"
+
+            }, {
+                name: "Wanda Burke",
+                gnd: "female"
+
+            }, {
+                name: "Harriet Moss",
+                gnd: "female"
+            }, {
+                name: "Vera Foster",
+                gnd: "female"
+            }];
+        var group2 = [
+            {
+                name: "Oscar Fitzgerald",
+                gnd: "male"
+            },
+            {
+                name: "Peter Santiago",
+                gnd: "male"
+            },
+            {
+                name: "Abe Alexander",
+                gnd: "male"
+            },
+            {
+                name: "Orson Nicholls",
+                gnd: "male"
+            },
+            {
+                name: "Paisley Neel",
+                gnd: "female"
+            },
+            {
+                name: "Kay Hum",
+                gnd: "female"
+            },
+            {
+                name: "Juliet Snyder",
+                gnd: "female"
+            },
+        ];
+        var group3 = [
+            {
+                name: "Bailey Clem",
+                gnd: "male"
+            },
+            {
+                name: "Linden Dixon",
+                gnd: "male"
+            },
+            {
+                name: "Tad Valdez",
+                gnd: "male"
+            },
+            {
+                name: "Harry Field",
+                gnd: "male"
+            },
+            {
+                name: "Stanley Massy",
+                gnd: "male"
+            },
+            {
+                name: "Dane Lamb",
+                gnd: "male"
+            },
+
+            {
+                name: "Thomasina Farmer",
+                gnd: "female"
+            },
+            {
+                name: "Emma Chandler",
+                gnd: "female"
+            },
+            {
+                name: "Justine Nichols",
+                gnd: "female"
+            },
+            {
+                name: "Fiona Skinner",
+                gnd: "female"
+            },
+            {
+                name: "Myrtle Davis",
+                gnd: "female"
+            },
+            {
+                name: "Elaine Terry",
+                gnd: "female"
+            }
+
+        ];
+        var averagePoint = 65;
+        var hightPoint = 89;
+
+        /*=================Початкові дані (ініціалізація)================================*/
+        function inputData() {
+            editArrKey(group1, "GROUP_1")
+            editArrKey(group2, "GROUP_2")
+            editArrKey(group3, "GROUP_3")
+
+
+            /*=================Заповнення іншими ключами групи студентів================================*/
+            function editArrKey(arrGroup, groupName) {
+                const coursArr = ["Maths", "Physics", "Language", "History", "Biology", "Geography"];
+                let n = 1;
+                var today = new Date();
+
+                for (let student of arrGroup) {
+                    let ch = (student.gnd == "male") ? "m" : "w";
+                    student.photo = `avatar/${ch}${Math.floor(Math.random() * 6 + 1)}.png`;/* по 7 зображень*/
+                    student.group = groupName;
+                    student.course = coursArr[Math.floor(Math.random() * 6)] /*6 предметів*/
+                    student.mark = Math.floor(Math.random() * 101);
+                    student.id = n + today.getMilliseconds();;
+                    n += 1;
+                }
+                console.log(arrGroup);
+                return arrGroup;
+            }
+        }
+
+
+        /*=================Об'єднання оцінок в одну таблицю ================================*/
+        function initStudent() {
+            var studentAll = [].concat(...arguments);
+
+            return studentAll;
+        }
+
+        /*=================Сортування оцінок студентів і створення фінального масиву================================*/
+
+        function sortedStudent(avgPoint, hiPoint, arrStudent) {
+            var StudentBad = arrStudent.filter(function (item) { return item.mark < avgPoint; });
+            // console.dir(StudentBad);
+            var StudentNorm = arrStudent.filter(function (item) { return item.mark >= avgPoint && item.mark < hiPoint; });
+            var StudentGood = arrStudent.filter(function (item) { return item.mark >= hiPoint; });
+            // console.dir(StudentNorm);
+            //  console.dir(StudentGood);
+
+            var arrStudentSort = [].concat([StudentGood], [StudentNorm], [StudentBad]);
+            console.dir(arrStudentSort);
+            return arrStudentSort;
+
+        }
+
+        /*=================Виведення кінцевих результатів================================*/
+        function displayStudent(studentSortedMark) {
+            var userList = document.querySelector("#user-wrapper");
+            //append 3 row
+            userList.innerHTML = "";
+            for (let i = 0; i < studentSortedMark.length; i++) {
+                /* Якщо студентів в групі по рейтингам немає, або закінчилися після вилучення*/
+                if (studentSortedMark[i].length < 1) {
+                    var groupSortName = createElement("h2", "user-headers", `<br> ${
+                        (i == 0) ? "Student GOOD No student Yet!!!" : (i == 1) ? "Student NORM No student Yet!!!" : "Student BAD No student Yet!!!"}`);
+                    userList.appendChild(groupSortName);
+                }
+                else {
+
+                    /* Якщо студенти в групі по рейтингам є, або  не закінчилися після вилучення*/
+                    var groupSortName = createElement("h2", "user-headers", `<br> ${
+                        (i == 0) ? "Student GOOD" : (i == 1) ? "Student NORM" : "Student BAD"}`);
+                    let classDisplayGroup = (i == 0) ? "good-list" : (i == 1) ? "norm-list" : "bed-list";
+                    userList.appendChild(groupSortName);
+                    for (let j = 0; j < studentSortedMark[i].length; j++) {
+                        let currentStudent = studentSortedMark[i][j];
+                        let innerText = `
+                                <div class="inf">
+                                <h4>${currentStudent.name}</h4>
+                                <img src="${currentStudent.photo}">
+                                <p>${currentStudent.group}</p>
+                                </div>
+                                <div class="inf">
+                                <p>Subdject: ${currentStudent.course}</p>
+                                <span>mark: ${currentStudent.mark}</span>
+                                </div>`;
+                        let newStudentElement = createElement("li", `user-list-card ${classDisplayGroup}`, innerText, function (event) { console.log(currentStudent, currentStudent.name) });
+                        userList.appendChild(newStudentElement);
+                        let delateButton = createElement("button", "delete-button", "<span>Delete student</span>", function (event) {
+                            console.log("delete student", currentStudent.name)
+                            if (confirm(`You about to delete Student: ${currentStudent.name}?`)) {
+                                studentDeleter(studentSortedMark, currentStudent.id)
+                            }
+                        })
+                        newStudentElement.appendChild(delateButton);
+                        userList.appendChild(newStudentElement);
+                    }
+                }
+            }
+        }
+
+        function createElement(tagName, className, innerText, eventCallback) {
+            var newElement = document.createElement(tagName);
+            newElement.className = (className) ? className : false;
+            newElement.innerHTML = (innerText) ? innerText : false;
+            if (eventCallback) newElement.addEventListener("click", (event) => {
+                eventCallback(event)
+            })
+            return newElement;
+        }
+        /*=======================Вилучення студентів======================*/
+        function studentDeleter(studentSortedMark, studentId) {
+
+            var findStudent = false;
+            let i = 0;
+            while ((i < studentSortedMark.length) && (!findStudent)) {
+                let j = 0;
+                while (j < studentSortedMark[i].length) {
+                    let currentStudent = studentSortedMark[i][j]
+                    if ((currentStudent.id == studentId) && (!findStudent)) {
+                        studentSortedMark[i].splice(j, 1);
+                        findStudent = true;
+                        console.log("ind", i, "--", j, currentStudent.name);
+                        break;
+
+                    }
+                    else j++;
+                } i++
+            };
+            console.dir(studentSortedMark);
+            if (!findStudent) return console.error("cant find user", studentId);
+
+            displayStudent(studentSortedMark);
+
+
+        }
+
+
+        /* =========== Кроки виконання =========== */
+        inputData();
+        var allStudent = initStudent(group1, group2, group3);
+
+        var studentSortedMark = sortedStudent(
+            averagePoint,
+            hightPoint,
+            allStudent
+        );
+        displayStudent(studentSortedMark);
+
+
+    </script>
+
+</body>
+
+</html>
