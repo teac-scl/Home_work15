@@ -323,8 +323,12 @@
                 /* Якщо студентів в групі по рейтингам немає, або закінчилися після вилучення*/
                 if (studentSortedMark[i].length < 1) {
                     var groupSortName = createElement("h2", "user-headers", `<br> ${
-                        (i == 0) ? "Student GOOD No student Yet!!!" : (i == 1) ? "Student NORM No student Yet!!!" : "Student BAD No student Yet!!!"}`);
+                        (i == 0) ? "Student GOOD" : (i == 1) ? "Student NORM" : "Student BAD"}`);
                     userList.appendChild(groupSortName);
+                    let innerText = "<h3>No student Yet!!!</h3>";
+
+                    let newStudentElement = createElement("li", "user-list-card", innerText);
+                    userList.appendChild(newStudentElement);
                 }
                 else {
 
