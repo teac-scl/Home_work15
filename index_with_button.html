@@ -278,7 +278,7 @@
 
                 for (let student of arrGroup) {
                     let ch = (student.gnd == "male") ? "m" : "w";
-                    student.photo = `avatar/${ch}${Math.floor(Math.random() * 6 + 1)}.png`;/* по 7 зображень*/
+                    student.photo = `./avatar/${ch}${Math.floor(Math.random() * 6 + 1)}.png`;/* по 7 зображень*/
                     student.group = groupName;
                     student.course = coursArr[Math.floor(Math.random() * 6)] /*6 предметів*/
                     student.mark = Math.floor(Math.random() * 101);
